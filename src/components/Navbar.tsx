@@ -17,15 +17,14 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/90 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"
-      }`}
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? "bg-white/90 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"
+        }`}
     >
       <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2">
-          <div className="relative h-10 w-40">
+          <div className="relative h-25 w-75">
             <Image
-              src="/logo.png"
+              src="/logo.svg"
               alt="HassleFreeCare Logo"
               fill
               className="object-contain object-left"

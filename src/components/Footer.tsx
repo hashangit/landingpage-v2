@@ -7,9 +7,9 @@ export default function Footer() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex flex-col items-center md:items-start gap-4">
-            <div className="relative h-8 w-32">
+            <div className="relative h-40 w-100">
               <Image
-                src="/logo.png"
+                src="/logo.svg"
                 alt="HassleFreeCare Logo"
                 fill
                 className="object-contain object-left"
@@ -33,7 +33,7 @@ export default function Footer() {
             © {new Date().getFullYear()} HassleFreeCare. All rights reserved.
           </div>
         </div>
-        
+
         <div className="mt-12 pt-8 border-t border-gray-50 text-center">
           <p className="text-[10px] text-gray-300 uppercase tracking-widest font-bold">
             A Driver-Led Transport Infrastructure Partner
