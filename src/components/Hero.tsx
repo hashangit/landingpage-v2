@@ -260,7 +260,7 @@ export default function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-blue opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-blue"></span>
               </span>
-              Operational Transport Partner
+              Reliable Transport for Your Care Team
             </span>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-brand-navy mb-8 leading-[1.1]">
               Driver-Led Transport Support for{" "}
@@ -276,7 +276,7 @@ export default function Hero() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600/90 mb-12 max-w-2xl mx-auto leading-relaxed">
-              We provide dependable driver and vehicle support to help home care providers deliver visits on time — even where driving care workers are in short supply.
+              We provide the drivers and vehicles so your carers can focus on care. No more worrying about how your team gets to their next visit.
             </p>
           </motion.div>
 
@@ -310,9 +310,9 @@ export default function Hero() {
             className="mt-16 flex flex-wrap justify-center gap-x-10 gap-y-6 text-sm text-gray-500 font-semibold"
           >
             {[
-              "Unlock Carer Capacity",
-              "Reduce Missed Visits",
-              "Stable Rota Delivery",
+              "Reliable Transport",
+              "Zero Missed Visits",
+              "Focus on Care",
             ].map((text, i) => (
               <motion.div
                 key={text}

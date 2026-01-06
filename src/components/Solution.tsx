@@ -33,14 +33,35 @@ export default function Solution() {
               The HassleFreeCare Approach
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-brand-navy mb-8 leading-tight">
-              A Practical, Operational <br /> Solution for Your Rota
+              We provide the car and the driver. <br /> You provide the carer.
             </h2>
             <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-              HassleFreeCare provides dedicated drivers and vehicles that integrate into your existing rotas, enabling non-driving carers to reach service users efficiently and reliably.
+              HassleFreeCare fits right into your existing schedule. We provide dedicated drivers and vehicles to get your non-driving carers to their visits, on time, every time.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-8">
-              {features.map((feature, index) => (
+              {[
+                {
+                  icon: <Car className="w-6 h-6" />,
+                  title: "Driver + Vehicle Support",
+                  description: "A professional driver and reliable vehicle assigned to your care rotas."
+                },
+                {
+                  icon: <Network className="w-6 h-6" />,
+                  title: "Get more done",
+                  description: "Enable your existing team to cover more visits without needing to hire more drivers."
+                },
+                {
+                  icon: <Settings className="w-6 h-6" />,
+                  title: "Fits your schedule",
+                  description: "Works alongside your current scheduling system without any complicated changes."
+                },
+                {
+                  icon: <Target className="w-6 h-6" />,
+                  title: "Reliable transport",
+                  description: "Fixed transport routes that ensure every visit is reached as planned."
+                }
+              ].map((feature, index) => (
                 <div key={index} className="flex gap-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-brand-teal/10 rounded-xl flex items-center justify-center text-brand-teal">
                     {feature.icon}
@@ -61,7 +82,7 @@ export default function Solution() {
                   <h4 className="text-2xl font-bold mb-2">Stable Rota Delivery</h4>
                   <p className="text-gray-400">Operational visibility at every step.</p>
                 </div>
-                
+
                 <div className="space-y-4">
                   <div className="bg-white/10 p-4 rounded-xl flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -87,7 +108,7 @@ export default function Solution() {
                 </div>
               </div>
             </div>
-            
+
             {/* Decorative background element */}
             <div className="absolute -top-10 -right-10 w-full h-full bg-brand-teal/5 rounded-3xl -z-10 transform rotate-3" />
             <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-brand-blue/10 rounded-full blur-xl" />

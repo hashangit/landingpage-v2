@@ -3,23 +3,23 @@ import { TrendingUp, ShieldCheck, Zap, BarChart3, Minimize2 } from "lucide-react
 export default function WhyItMatters() {
   const benefits = [
     {
-      title: "Unlock Hidden Capacity",
-      description: "Convert your non-driving workforce into high-utilization mobile carers.",
+      title: "Make the most of every carer",
+      description: "Non-drivers can now reach any visit, just like your driving staff.",
       icon: <Zap className="w-5 h-5" />
     },
     {
-      title: "Reduce Driver Dependency",
-      description: "Operate effectively even in regions where driving carers are scarce.",
+      title: "No more driver dependency",
+      description: "Grow your service even if you can't find enough carers who drive.",
       icon: <Minimize2 className="w-5 h-5" />
     },
     {
-      title: "Improve Rota Stability",
-      description: "Maintain consistent visit delivery and reduce last-minute disruption.",
+      title: "Reliable visits, every day",
+      description: "Stop worrying about transport and focus on delivering great care.",
       icon: <ShieldCheck className="w-5 h-5" />
     },
     {
-      title: "Scale Without Headcount",
-      description: "Support operational growth without inflating your internal management overhead.",
+      title: "Grow without the headache",
+      description: "Expand your team and your service area without hiring more drivers.",
       icon: <TrendingUp className="w-5 h-5" />
     }
   ];
@@ -27,7 +27,7 @@ export default function WhyItMatters() {
   return (
     <section className="py-24 bg-brand-blue text-white overflow-hidden relative">
       <div className="absolute top-0 right-0 w-1/3 h-full bg-white/5 skew-x-12 -mr-24" />
-      
+
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           <div className="lg:w-1/2">
@@ -37,7 +37,7 @@ export default function WhyItMatters() {
             <p className="text-brand-teal font-medium text-lg mb-10">
               Reliability isn't just a goal—it's the foundation of care delivery. We provide the infrastructure to make it happen.
             </p>
-            
+
             <div className="grid sm:grid-cols-2 gap-6">
               {benefits.map((benefit, index) => (
                 <div key={index} className="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/10">

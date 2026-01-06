@@ -8,9 +8,9 @@ export default function CapacityDiagram() {
     <section className="py-24 bg-brand-navy text-white overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Visualising Capacity Unlocking</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">See the Difference</h2>
           <p className="text-gray-400 text-lg">
-            See how HassleFreeCare transforms your existing workforce into a fully mobile, high-capacity team.
+            See how HassleFreeCare transforms your team, making every carer as mobile as a driver.
           </p>
         </div>
 
@@ -18,10 +18,10 @@ export default function CapacityDiagram() {
           {/* Before: Traditional Model */}
           <div className="bg-white/5 rounded-3xl p-8 border border-white/10 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4">
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-full">Traditional Model</span>
+              <span className="text-xs font-bold text-gray-500 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-full">Before: Limited by transport</span>
             </div>
-            <h3 className="text-xl font-bold mb-8">The Mobility Bottleneck</h3>
-            
+            <h3 className="text-xl font-bold mb-8">Isolated Carers</h3>
+
             <div className="space-y-12">
               <div className="flex items-start gap-6">
                 <div className="flex-shrink-0 w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
@@ -55,14 +55,14 @@ export default function CapacityDiagram() {
           {/* After: HFC Model */}
           <div className="bg-brand-blue/20 rounded-3xl p-8 border border-brand-blue/30 relative overflow-hidden">
             <div className="absolute top-0 right-0 p-4">
-              <span className="text-xs font-bold text-brand-teal uppercase tracking-widest bg-brand-teal/20 px-3 py-1 rounded-full">HFC Infrastructure</span>
+              <span className="text-xs font-bold text-brand-teal uppercase tracking-widest bg-brand-teal/20 px-3 py-1 rounded-full">After: Every carer is mobile</span>
             </div>
-            <h3 className="text-xl font-bold mb-8 text-white">Unlocking Full Potential</h3>
+            <h3 className="text-xl font-bold mb-8 text-white">Full Team Reliability</h3>
 
             <div className="relative">
               {/* Central Driver Node */}
               <div className="flex justify-center mb-12">
-                <motion.div 
+                <motion.div
                   animate={{ scale: [1, 1.05, 1] }}
                   transition={{ duration: 4, repeat: Infinity }}
                   className="w-20 h-20 bg-brand-teal rounded-3xl flex items-center justify-center shadow-[0_0_30px_rgba(0,168,181,0.3)] relative z-10"
