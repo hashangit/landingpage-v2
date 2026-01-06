@@ -1,6 +1,7 @@
 "use client";
 import { Car, Network, Settings, Target } from "lucide-react";
 import { motion } from "framer-motion";
+import OptimizedRota from "./OptimizedRota";
 
 export default function Solution() {
   const features = [
@@ -96,52 +97,18 @@ export default function Solution() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="lg:w-1/2 relative"
+            className="lg:w-1/2 relative min-h-[400px]"
           >
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative z-10 bg-white p-4 rounded-3xl shadow-2xl border border-gray-100"
-            >
-              <div className="bg-brand-navy rounded-2xl p-8 text-white aspect-[4/3] flex flex-col justify-between overflow-hidden">
-                <div>
-                  <h4 className="text-2xl font-bold mb-2">Stable Rota Delivery</h4>
-                  <p className="text-gray-400">Operational visibility at every step.</p>
-                </div>
-
-                <div className="space-y-4">
-                  {[
-                    { status: "Driver En-route", time: "14:20", color: "bg-brand-green", pulse: true },
-                    { status: "Carer Pick-up Confirmed", time: "14:35", color: "bg-brand-teal", pulse: false },
-                    { status: "Visit 1: On-time Delivery", time: "14:50", color: "bg-white", active: true }
-                  ].map((item, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: 0.5 + (0.2 * i) }}
-                      className={`${item.active ? 'bg-brand-blue/40 border border-brand-blue/50' : 'bg-white/10'} p-4 rounded-xl flex items-center justify-between`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className={`w-2 h-2 rounded-full ${item.color} ${item.pulse ? 'animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]' : ''}`} />
-                        <span className="text-sm font-medium">{item.status}</span>
-                      </div>
-                      <span className={`text-xs ${item.active ? 'text-white/70' : 'text-gray-400'}`}>{item.time}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Decorative background element */}
-            <motion.div
-              animate={{ rotate: [3, 5, 3], scale: [1, 1.02, 1] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-10 -right-10 w-full h-full bg-brand-teal/5 rounded-3xl -z-10 transform"
-            />
-            <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-brand-blue/10 rounded-full blur-xl" />
+            <OptimizedRota />
           </motion.div>
+
+          {/* Decorative background element */}
+          <motion.div
+            animate={{ rotate: [3, 5, 3], scale: [1, 1.02, 1] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -top-10 -right-10 w-full h-full bg-brand-teal/5 rounded-3xl -z-10 transform"
+          />
+          <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-brand-blue/10 rounded-full blur-xl" />
         </div>
       </div>
     </section>
