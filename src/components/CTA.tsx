@@ -21,11 +21,11 @@ export default function CTA() {
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-16">
           <div className="lg:w-1/2 text-white">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8">Let's Talk</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-8">Let&apos;s Talk</h2>
             <p className="text-xl text-gray-400 mb-10 leading-relaxed">
-              If transport constraints are limiting your ability to deliver care, we'd be happy to explore whether our model can support your operations.
+              If transport constraints are limiting your ability to deliver care, we&apos;d be happy to explore whether our model can support your operations.
             </p>
-            
+
             <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center">
@@ -57,7 +57,7 @@ export default function CTA() {
                   </div>
                   <h3 className="text-2xl font-bold text-brand-navy mb-4">Message Sent</h3>
                   <p className="text-gray-600">Thank you. One of our operational leads will be in touch shortly.</p>
-                  <button 
+                  <button
                     onClick={() => setSubmitted(false)}
                     className="mt-8 text-brand-blue font-bold hover:underline"
                   >
@@ -69,60 +69,60 @@ export default function CTA() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label htmlFor="name" className="text-sm font-bold text-brand-navy">Full Name</label>
-                      <input 
+                      <input
                         required
-                        type="text" 
-                        id="name" 
+                        type="text"
+                        id="name"
                         placeholder="John Doe"
                         className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-teal focus:border-transparent outline-none transition-all"
                       />
                     </div>
                     <div className="space-y-2">
                       <label htmlFor="role" className="text-sm font-bold text-brand-navy">Role</label>
-                      <input 
+                      <input
                         required
-                        type="text" 
-                        id="role" 
+                        type="text"
+                        id="role"
                         placeholder="Operations Manager"
                         className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-teal focus:border-transparent outline-none transition-all"
                       />
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <label htmlFor="org" className="text-sm font-bold text-brand-navy">Organisation</label>
-                    <input 
+                    <input
                       required
-                      type="text" 
-                      id="org" 
+                      type="text"
+                      id="org"
                       placeholder="Your Care Company Ltd"
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-teal focus:border-transparent outline-none transition-all"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-sm font-bold text-brand-navy">Email Address</label>
-                    <input 
+                    <input
                       required
-                      type="email" 
-                      id="email" 
+                      type="email"
+                      id="email"
                       placeholder="john@example.com"
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-teal focus:border-transparent outline-none transition-all"
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <label htmlFor="message" className="text-sm font-bold text-brand-navy">Message</label>
-                    <textarea 
+                    <textarea
                       required
-                      id="message" 
-                      rows={4} 
+                      id="message"
+                      rows={4}
                       placeholder="How can we help your operations?"
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-teal focus:border-transparent outline-none transition-all resize-none"
                     ></textarea>
                   </div>
-                  
-                  <button 
+
+                  <button
                     type="submit"
                     className="w-full py-4 bg-brand-blue text-white rounded-xl font-bold text-lg hover:bg-brand-blue/90 transition-all shadow-lg shadow-brand-blue/20 flex items-center justify-center gap-2"
                   >

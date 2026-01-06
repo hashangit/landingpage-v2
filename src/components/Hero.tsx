@@ -264,7 +264,7 @@ export default function Hero() {
             </span>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-brand-navy mb-8 leading-[1.1]">
               Driver-Led Transport Support for{" "}
-              <span className="relative inline-block whitespace-nowrap overflow-hidden">
+              <span className="relative inline-block md:whitespace-nowrap">
                 <span
                   className="bg-clip-text text-transparent bg-[length:200%_100%] animate-shimmer"
                   style={{
