@@ -4,6 +4,7 @@ import { motion, useMotionValue, useSpring, useScroll, useTransform } from "fram
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import React, { useRef } from "react";
+import CalModal, { useCalModal } from "./CalModal";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -28,14 +29,24 @@ const itemVariants = {
   },
 } as const;
 
-function MagneticButton({ children, className, href }: { children: React.ReactNode; className: string; href: string }) {
+function MagneticButton({
+  children,
+  className,
+  href,
+  onClick
+}: {
+  children: React.ReactNode;
+  className: string;
+  href?: string;
+  onClick?: () => void;
+}) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
   const mouseX = useSpring(x, { stiffness: 150, damping: 15 });
   const mouseY = useSpring(y, { stiffness: 150, damping: 15 });
 
-  function handleMouseMove(e: React.MouseEvent<HTMLAnchorElement>) {
+  function handleMouseMove(e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -50,14 +61,27 @@ function MagneticButton({ children, className, href }: { children: React.ReactNo
 
   return (
     <motion.div style={{ x: mouseX, y: mouseY }} className="w-full sm:w-auto">
-      <Link
-        href={href}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className={className}
-      >
-        {children}
-      </Link>
+      {href ? (
+        <Link
+          href={href}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className={className}
+        >
+          {children}
+        </Link>
+      ) : (
+        <motion.button
+          onClick={onClick}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className={className}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          {children}
+        </motion.button>
+      )}
     </motion.div>
   );
 }
@@ -243,6 +267,8 @@ function ParallaxBackground() {
 }
 
 export default function Hero() {
+  const { open: openCalModal } = useCalModal();
+
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
       <ParallaxBackground />
@@ -285,7 +311,7 @@ export default function Hero() {
             className="flex flex-col sm:flex-row items-center justify-center gap-6"
           >
             <MagneticButton
-              href="#contact"
+              onClick={openCalModal}
               className="w-full sm:w-auto px-10 py-5 bg-brand-blue text-white rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-brand-blue/30 transition-shadow flex items-center justify-center gap-2 group relative overflow-hidden"
             >
               <span className="relative z-10 flex items-center gap-2">
@@ -334,6 +360,11 @@ export default function Hero() {
           </motion.div>
         </motion.div>
       </div>
+
+      <CalModal
+        calLink={process.env.NEXT_PUBLIC_CAL_COM_LINK || "hasslefreecare/30min"}
+        calDomain={process.env.NEXT_PUBLIC_CAL_DOMAIN}
+      />
     </section>
   );
 }

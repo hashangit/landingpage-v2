@@ -3,8 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import CalModal, { useCalModal } from "./CalModal";
 
 export default function Navbar() {
+  const { open: openCalModal } = useCalModal();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -43,9 +45,12 @@ export default function Navbar() {
           <Link href="#how-it-works" className="text-sm font-medium hover:text-brand-teal transition-colors">
             How It Works
           </Link>
-          <Link href="#contact" className="bg-brand-blue text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-brand-blue/90 transition-all">
+          <button
+            onClick={openCalModal}
+            className="bg-brand-blue text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-brand-blue/90 transition-all"
+          >
             Start a Conversation
-          </Link>
+          </button>
         </div>
 
         <button className="md:hidden text-brand-navy">
@@ -54,6 +59,11 @@ export default function Navbar() {
           </svg>
         </button>
       </div>
+
+      <CalModal
+        calLink={process.env.NEXT_PUBLIC_CAL_COM_LINK || "hasslefreecare/30min"}
+        calDomain={process.env.NEXT_PUBLIC_CAL_DOMAIN}
+      />
     </nav>
   );
 }
