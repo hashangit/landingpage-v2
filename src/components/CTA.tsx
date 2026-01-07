@@ -1,14 +1,87 @@
 "use client";
 
 import { useState } from "react";
-import { Send, ArrowRight } from "lucide-react";
+import { Send, ArrowRight, Loader2 } from "lucide-react";
+import Toast from "./Toast";
+
+interface FormSubmitData {
+  name: string;
+  role: string;
+  org: string;
+  email: string;
+  message: string;
+}
+
+interface FormcarryResponse {
+  code: number;
+  message: string;
+  id?: string;
+}
 
 export default function CTA() {
-  const [submitted, setSubmitted] = useState(false);
+  const [formState, setFormState] = useState({
+    isSubmitting: false,
+    submitError: null as string | null,
+    isSuccess: false,
+    showToast: false,
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    // Check honeypot - silent fail if filled (bot)
+    if (formData.get("_honey")) {
+      return;
+    }
+
+    const data: FormSubmitData = {
+      name: formData.get("name") as string,
+      role: formData.get("role") as string,
+      org: formData.get("org") as string,
+      email: formData.get("email") as string,
+      message: formData.get("message") as string,
+    };
+
+    setFormState(prev => ({ ...prev, isSubmitting: true, submitError: null, showToast: false }));
+
+    try {
+      const response = await fetch("https://formcarry.com/s/rmeVf3YHK3n", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result: FormcarryResponse = await response.json();
+
+      if (response.ok && result.code === 200) {
+        setFormState({
+          isSubmitting: false,
+          submitError: null,
+          isSuccess: true,
+          showToast: false,
+        });
+        form.reset();
+      } else {
+        throw new Error(result.message || "Submission failed. Please try again.");
+      }
+    } catch (error) {
+      const errorMessage = error instanceof Error
+        ? error.message
+        : "An unexpected error occurred. Please try again.";
+
+      setFormState(prev => ({
+        ...prev,
+        isSubmitting: false,
+        submitError: errorMessage,
+        showToast: true,
+      }));
+    }
   };
 
   return (
@@ -50,7 +123,7 @@ export default function CTA() {
 
           <div className="lg:w-1/2">
             <div className="bg-white p-8 md:p-10 rounded-[2rem] shadow-2xl">
-              {submitted ? (
+              {formState.isSuccess ? (
                 <div className="text-center py-10">
                   <div className="w-20 h-20 bg-brand-green/10 text-brand-green rounded-full flex items-center justify-center mx-auto mb-6">
                     <Send className="w-10 h-10" />
@@ -58,7 +131,7 @@ export default function CTA() {
                   <h3 className="text-2xl font-bold text-brand-navy mb-4">Message Sent</h3>
                   <p className="text-gray-600">Thank you. One of our operational leads will be in touch shortly.</p>
                   <button
-                    onClick={() => setSubmitted(false)}
+                    onClick={() => setFormState({ isSubmitting: false, submitError: null, isSuccess: false, showToast: false })}
                     className="mt-8 text-brand-blue font-bold hover:underline"
                   >
                     Send another message
@@ -73,6 +146,7 @@ export default function CTA() {
                         required
                         type="text"
                         id="name"
+                        name="name"
                         placeholder="John Doe"
                         className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-teal focus:border-transparent outline-none transition-all"
                       />
@@ -83,6 +157,7 @@ export default function CTA() {
                         required
                         type="text"
                         id="role"
+                        name="role"
                         placeholder="Operations Manager"
                         className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-teal focus:border-transparent outline-none transition-all"
                       />
@@ -95,6 +170,7 @@ export default function CTA() {
                       required
                       type="text"
                       id="org"
+                      name="org"
                       placeholder="Your Care Company Ltd"
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-teal focus:border-transparent outline-none transition-all"
                     />
@@ -106,6 +182,7 @@ export default function CTA() {
                       required
                       type="email"
                       id="email"
+                      name="email"
                       placeholder="john@example.com"
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-teal focus:border-transparent outline-none transition-all"
                     />
@@ -116,18 +193,52 @@ export default function CTA() {
                     <textarea
                       required
                       id="message"
+                      name="message"
                       rows={4}
                       placeholder="How can we help your operations?"
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-teal focus:border-transparent outline-none transition-all resize-none"
                     ></textarea>
                   </div>
 
+                  {/* Honeypot field for spam protection */}
+                  <div
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      left: "-5000px",
+                      width: 0,
+                      height: 0,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <label htmlFor="honey" className="sr-only">
+                      Don&apos;t fill this out if you&apos;re human
+                    </label>
+                    <input
+                      type="text"
+                      id="honey"
+                      name="_honey"
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
+
                   <button
                     type="submit"
-                    className="w-full py-4 bg-brand-blue text-white rounded-xl font-bold text-lg hover:bg-brand-blue/90 transition-all shadow-lg shadow-brand-blue/20 flex items-center justify-center gap-2"
+                    disabled={formState.isSubmitting}
+                    className="w-full py-4 bg-brand-blue text-white rounded-xl font-bold text-lg hover:bg-brand-blue/90 transition-all shadow-lg shadow-brand-blue/20 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    Send Message
-                    <Send className="w-5 h-5" />
+                    {formState.isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        <span>Sending...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Send Message</span>
+                        <Send className="w-5 h-5" />
+                      </>
+                    )}
                   </button>
                 </form>
               )}
@@ -135,6 +246,13 @@ export default function CTA() {
           </div>
         </div>
       </div>
+
+      <Toast
+        message={formState.submitError || ""}
+        type="error"
+        isVisible={formState.showToast}
+        onClose={() => setFormState(prev => ({ ...prev, showToast: false }))}
+      />
     </section>
   );
 }
