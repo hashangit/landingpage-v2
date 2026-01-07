@@ -49,8 +49,21 @@ export default function CTA() {
 
     setFormState(prev => ({ ...prev, isSubmitting: true, submitError: null, showToast: false }));
 
+    // Validate environment variable
+    const formcarryUrl = process.env.NEXT_PUBLIC_FORMCARRY_URL;
+    if (!formcarryUrl) {
+      console.error("Formcarry URL is not defined. Please set NEXT_PUBLIC_FORMCARRY_URL environment variable.");
+      setFormState(prev => ({
+        ...prev,
+        isSubmitting: false,
+        submitError: "Form submission is currently unavailable. Please try again later.",
+        showToast: true,
+      }));
+      return;
+    }
+
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_FORMCARRY_URL!, {
+      const response = await fetch(formcarryUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

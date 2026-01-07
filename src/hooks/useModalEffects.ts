@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 
 /**
  * Custom hook that handles common modal side effects:
@@ -24,13 +24,17 @@ export function useModalEffects(isOpen: boolean, onClose: () => void) {
 
   // Prevent body scroll when modal is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    if (!isOpen) {
+      return;
     }
+
+    // Save the original overflow value to restore it later
+    const originalOverflow = window.getComputedStyle(document.body).overflow;
+    document.body.style.overflow = "hidden";
+
     return () => {
-      document.body.style.overflow = "";
+      // Restore the original overflow value
+      document.body.style.overflow = originalOverflow;
     };
   }, [isOpen]);
 }

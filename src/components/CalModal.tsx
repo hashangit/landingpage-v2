@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { useModalEffects } from "@/hooks/useModalEffects";
 
 interface CalModalProps {
@@ -12,6 +13,7 @@ interface CalModalProps {
 
 export default function CalModal({ isOpen, onClose, calLink, calDomain }: CalModalProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const pathname = usePathname();
 
   // Build the embed URL with the custom domain
   const domain = calDomain || "cal.com";
@@ -20,10 +22,11 @@ export default function CalModal({ isOpen, onClose, calLink, calDomain }: CalMod
 
   // Set the full URL with redirect on client side only
   useEffect(() => {
+    const currentUrl = window.location.origin + pathname;
     setEmbedUrl(
-      `https://${domain}/${calLink}?embed=true&url=${encodeURIComponent(window.location.href)}`
+      `https://${domain}/${calLink}?embed=true&url=${encodeURIComponent(currentUrl)}`
     );
-  }, [calLink, domain]);
+  }, [calLink, domain, pathname]);
 
   // Handle common modal effects (escape key, body scroll lock)
   useModalEffects(isOpen, onClose);
