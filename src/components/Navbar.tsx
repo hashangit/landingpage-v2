@@ -3,10 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import CalModal, { useCalModal } from "./CalModal";
+import { useModals } from "@/contexts/ModalContext";
 
 export default function Navbar() {
-  const { open: openCalModal } = useCalModal();
+  const { openCalModal } = useModals();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -59,11 +59,6 @@ export default function Navbar() {
           </svg>
         </button>
       </div>
-
-      <CalModal
-        calLink={process.env.NEXT_PUBLIC_CAL_COM_LINK || "hasslefreecare/30min"}
-        calDomain={process.env.NEXT_PUBLIC_CAL_DOMAIN}
-      />
     </nav>
   );
 }

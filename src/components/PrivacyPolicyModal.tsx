@@ -1,23 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import LegalModal from "./LegalModal";
+import { useModals } from "@/contexts/ModalContext";
 
 export default function PrivacyPolicyModal() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
-
-  // Expose methods globally for Footer to use
-  useEffect(() => {
-    (window as unknown as { openPrivacyPolicy?: () => void }).openPrivacyPolicy = open;
-  }, [open]);
+  const { isPrivacyPolicyOpen, closePrivacyPolicy } = useModals();
 
   return (
-    <LegalModal isOpen={isOpen} onClose={close} title="Privacy Policy">
+    <LegalModal isOpen={isPrivacyPolicyOpen} onClose={closePrivacyPolicy} title="Privacy Policy">
       <p className="text-sm text-gray-600 mb-6">
-        <em>Last updated: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</em>
+        <em>Last updated: 7 January 2026</em>
       </p>
 
       <section className="mb-6">

@@ -1,23 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import LegalModal from "./LegalModal";
+import { useModals } from "@/contexts/ModalContext";
 
 export default function TermsConditionsModal() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
-
-  // Expose methods globally for Footer to use
-  useEffect(() => {
-    (window as unknown as { openTermsConditions?: () => void }).openTermsConditions = open;
-  }, [open]);
+  const { isTermsConditionsOpen, closeTermsConditions } = useModals();
 
   return (
-    <LegalModal isOpen={isOpen} onClose={close} title="Terms & Conditions">
+    <LegalModal isOpen={isTermsConditionsOpen} onClose={closeTermsConditions} title="Terms & Conditions">
       <p className="text-sm text-gray-600 mb-6">
-        <em>Last updated: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</em>
+        <em>Last updated: 7 January 2026</em>
       </p>
 
       <section className="mb-6">
@@ -105,7 +97,7 @@ export default function TermsConditionsModal() {
           <li>Uninterrupted service availability</li>
         </ul>
 
-        <h4 className="font-medium text-brand-navy mt-4 mb-2">6.2 Liability Cap</h4>
+        <h4 className="font-medium text-brand-navy mt-4 mb-2">6.2 Liability Caps</h4>
         <p className="text-gray-600 mb-3">
           Our liability is limited to the amount paid for the specific service in question. We are not liable for:
         </p>
