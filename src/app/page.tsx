@@ -9,21 +9,28 @@ import Safety from "@/components/Safety";
 import WhoWeSupport from "@/components/WhoWeSupport";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import { ModalProvider } from "@/contexts/ModalContext";
+import CalModalWrapper from "@/components/CalModalWrapper";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <Navbar />
-      <Hero />
-      <Solution />
-      <Problem />
-      <CapacityDiagram />
-      <HowItWorks />
-      <WhyItMatters />
-      <Safety />
-      <WhoWeSupport />
-      <CTA />
-      <Footer />
-    </main>
+    <ModalProvider>
+      <main className="min-h-screen">
+        <Navbar />
+        <Hero />
+        <Solution />
+        <Problem />
+        <CapacityDiagram />
+        <HowItWorks />
+        <WhyItMatters />
+        <Safety />
+        <WhoWeSupport />
+        <CTA />
+        <Footer />
+      </main>
+
+      {/* Single CalModal instance at page level */}
+      <CalModalWrapper />
+    </ModalProvider>
   );
 }

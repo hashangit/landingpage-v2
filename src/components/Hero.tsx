@@ -4,7 +4,7 @@ import { motion, useMotionValue, useSpring, useScroll, useTransform } from "fram
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import React, { useRef } from "react";
-import CalModal, { useCalModal } from "./CalModal";
+import { useModals } from "@/contexts/ModalContext";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -267,7 +267,7 @@ function ParallaxBackground() {
 }
 
 export default function Hero() {
-  const { open: openCalModal } = useCalModal();
+  const { openCalModal } = useModals();
 
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
@@ -360,11 +360,6 @@ export default function Hero() {
           </motion.div>
         </motion.div>
       </div>
-
-      <CalModal
-        calLink={process.env.NEXT_PUBLIC_CAL_COM_LINK || "hasslefreecare/30min"}
-        calDomain={process.env.NEXT_PUBLIC_CAL_DOMAIN}
-      />
     </section>
   );
 }

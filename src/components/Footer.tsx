@@ -5,17 +5,11 @@ import Image from "next/image";
 import { MapPin, Phone, Mail } from "lucide-react";
 import PrivacyPolicyModal from "./PrivacyPolicyModal";
 import TermsConditionsModal from "./TermsConditionsModal";
+import { useModals } from "@/contexts/ModalContext";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-
-  const openPrivacyPolicy = () => {
-    (window as unknown as { openPrivacyPolicy?: () => void }).openPrivacyPolicy?.();
-  };
-
-  const openTermsConditions = () => {
-    (window as unknown as { openTermsConditions?: () => void }).openTermsConditions?.();
-  };
+  const { openPrivacyPolicy, openTermsConditions } = useModals();
 
   return (
     <>

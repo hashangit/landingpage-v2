@@ -18,13 +18,15 @@ interface FormcarryResponse {
   id?: string;
 }
 
+const initialFormState = {
+  isSubmitting: false,
+  submitError: null as string | null,
+  isSuccess: false,
+  showToast: false,
+};
+
 export default function CTA() {
-  const [formState, setFormState] = useState({
-    isSubmitting: false,
-    submitError: null as string | null,
-    isSuccess: false,
-    showToast: false,
-  });
+  const [formState, setFormState] = useState(initialFormState);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,17 +40,30 @@ export default function CTA() {
     }
 
     const data: FormSubmitData = {
-      name: formData.get("name") as string,
-      role: formData.get("role") as string,
-      org: formData.get("org") as string,
-      email: formData.get("email") as string,
-      message: formData.get("message") as string,
+      name: String(formData.get("name") ?? ""),
+      role: String(formData.get("role") ?? ""),
+      org: String(formData.get("org") ?? ""),
+      email: String(formData.get("email") ?? ""),
+      message: String(formData.get("message") ?? ""),
     };
 
     setFormState(prev => ({ ...prev, isSubmitting: true, submitError: null, showToast: false }));
 
+    // Validate environment variable
+    const formcarryUrl = process.env.NEXT_PUBLIC_FORMCARRY_URL;
+    if (!formcarryUrl) {
+      console.error("Formcarry URL is not defined. Please set NEXT_PUBLIC_FORMCARRY_URL environment variable.");
+      setFormState(prev => ({
+        ...prev,
+        isSubmitting: false,
+        submitError: "Form submission is currently unavailable. Please try again later.",
+        showToast: true,
+      }));
+      return;
+    }
+
     try {
-      const response = await fetch("https://formcarry.com/s/rmeVf3YHK3n", {
+      const response = await fetch(formcarryUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -131,7 +146,7 @@ export default function CTA() {
                   <h3 className="text-2xl font-bold text-brand-navy mb-4">Message Sent</h3>
                   <p className="text-gray-600">Thank you. One of our operational leads will be in touch shortly.</p>
                   <button
-                    onClick={() => setFormState({ isSubmitting: false, submitError: null, isSuccess: false, showToast: false })}
+                    onClick={() => setFormState(initialFormState)}
                     className="mt-8 text-brand-blue font-bold hover:underline"
                   >
                     Send another message
